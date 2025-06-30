@@ -78,20 +78,21 @@ when loaded.
 It is a no-op on any other system.
 
 A general nuisance when running some Strawberry Perl instances is that the user has neglected
-to add the C<.../c/bin> and C<.../c/perl/site/bin> dirs to the path. This can lead to obscure errors
-with DLLs failing to load.
+to add the C<.../c/bin> and C<.../c/perl/site/bin> dirs to the path, for example by running
+C<portableshell.bat> at the top of a Strawberry Perl Portable installation.
+This can lead to obscure errors with DLLs failing to load.
 
 This module adds these to the path on startup (and the C<.../perl/bin> dir if needed, such as when
 perl is invoked using a full path but is not itself in the path).
 
-It has no effect on your shell so will not suddenly fix calls to utilities such as C<gmake> and similar,
+It has no effect on the calling shell so will not suddenly fix calls to utilities such as C<gmake> and similar,
 e.g. via a C<cpanm> call.
 
 The bin dirs are spliced into C<$ENV{PATH}> immediately after the path containing perl.exe.
 If perl is not in the path then they are appended to the end of C<$ENV{PATH}>.
 Portable::BinPaths will not prepend to the front of C<$ENV{PATH}>.
 
-A future version might generalise to any perl on Windows, hence the general name.
+A future version might be generalised to any perl on Windows, hence the general name.
 
 =head1 EXPORT
 
