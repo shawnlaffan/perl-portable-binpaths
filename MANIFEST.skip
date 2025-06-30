@@ -1,3 +1,7 @@
+^\.idea/
+\.iml$
+\.git
+
 Makefile
 Makefile.old
 Build
@@ -16,6 +20,7 @@ pod2htm*.tmp
 pm_to_blib
 Portable-BinPaths-*
 Portable-BinPaths-*.tar.gz
-.idea
-/*.iml
-/MANIFEST.bak
+
+ignore.txt
+
+MANIFEST.bak
