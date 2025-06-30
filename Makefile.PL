@@ -20,6 +20,19 @@ my %WriteMakefileArgs = (
         'Path::Tiny' => 0,
         'Env'        => 0,
     },
+    META_MERGE => {
+        "meta-spec" => { version => 2 },
+        resources => {
+            repository => {
+                type => 'git',
+                url => 'git://github.com/shawnlaffan/perl-portable-binpaths.git',
+                web => 'https://github.com/shawnlaffan/perl-portable-binpaths.git',
+            },
+            bugtracker => {
+                web => 'https://github.com/shawnlaffan/perl-portable-binpaths/issues/',
+            },
+        },
+    },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Portable-BinPaths-*' },
 );
