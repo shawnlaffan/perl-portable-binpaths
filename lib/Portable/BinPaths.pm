@@ -35,7 +35,7 @@ BEGIN {
             else {
                 splice @PATH, $idx + 1, 0, @paths;
             }
-            if (1 or $ENV{PORT_PB_VERBOSE}) {
+            if ($ENV{PORTABLE_BINPATHS_VERBOSE}) {
                 say "Portable::BinPaths: portable perl detected, its bin dirs have been added to $ENV{PATH}";
                 # say join "\n", @PATH;
             }
