@@ -10,3 +10,15 @@ perl is invoked using a full path but is not itself in the path).
 
 It has no effect on your shell so will not suddenly fix calls to utilities such as C<gmake> and similar,
 e.g. via a `cpanm` call.
+
+Example usages:
+
+```
+perl -MPortable::BinPaths somescript.pl
+```
+
+```cmd
+:: if perl is not in the path then the bin paths will be appended
+set PERL5OPT=-MPortable::BinPaths
+C:\perls\5.38.4.1\perl\bin\perl.exe -E"say $ENV{PATH}
+```

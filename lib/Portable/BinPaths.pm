@@ -59,9 +59,16 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
+    #  within a script:
     use Portable::BinPaths;
 
-    ...
+    #  from the command line:
+    perl -MPortable::BinPaths somescript.pl
+
+    #  or:
+    set PERL5OPT=-MPortable::BinPaths
+    C:\perls\5.38.4.1\perl\bin\perl.exe -E"say $ENV{PATH}
+
 
 =head1 DESCRIPTION
 
@@ -79,6 +86,10 @@ perl is invoked using a full path but is not itself in the path).
 
 It has no effect on your shell so will not suddenly fix calls to utilities such as C<gmake> and similar,
 e.g. via a C<cpanm> call.
+
+The bin dirs are spliced into C<$ENV{PATH}> immediately after the path containing perl.exe.
+If perl is not in the path then they are appended to the end of C<$ENV{PATH}>.
+Portable::BinPaths will not prepend to the front of C<$ENV{PATH}>.
 
 A future version might generalise to any perl on Windows, hence the general name.
 
