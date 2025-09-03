@@ -20,5 +20,5 @@ perl -MPortable::BinPaths somescript.pl
 ```cmd
 :: if perl is not in the path then the bin paths will be appended
 set PERL5OPT=-MPortable::BinPaths
-C:\perls\5.38.4.1\perl\bin\perl.exe -E"say $ENV{PATH}
+C:\perls\5.38.4.1\perl\bin\perl.exe -E"say $ENV{PATH}"
 ```
