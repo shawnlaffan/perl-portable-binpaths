@@ -9,23 +9,33 @@ BEGIN {
     use Config;
     if (($Config{myuname} // '') =~ /strawberry/i) {
         use Env qw /@PATH/;
-        my $sbase = path($^X)->parent->parent->parent;
+
+        my $perl_exe = path($^X);
+        if (!$perl_exe->volume) {
+            $perl_exe = $perl_exe->realpath;
+        }
+
+        my $sbase = $perl_exe->parent->parent->parent;
         my @non_null_paths = map {path($_)} grep {defined} @PATH; #  avoid undef path entries
+
         my %pexists;
-        @pexists{@non_null_paths} = @non_null_paths;
+        @pexists{@non_null_paths} = map {my $p = path($_); $p->volume ? $p : $p->realpath} @non_null_paths;
         my @paths =
             grep {-e $_ && !exists $pexists{$_}}
                 map {path($sbase, $_)}
                     ("/c/bin", "/perl/bin", "/perl/site/bin", "/perl/vendor/bin");
+
         if (@paths) {
             #  splice them in after the perl dir, or at the front
             my $idx = -1;
-            my $perl_path = path($^X)->parent->stringify;
+            my $perl_path = $perl_exe->parent->stringify;
             #  we cannot depend on List::MoreUtils::first_idx as we try to be tiny-ish
             foreach my $path (@PATH) {
                 $idx++;
                 next if !defined $path;
-                last if $perl_path eq path ($path)->stringify
+                my $p = path ($path);
+                $p = $p->realpath if !$p->volume;
+                last if $perl_path eq $p;
             }
             #  Handle case where perl is not in the path
             #  and was called with a fully qualified path
@@ -36,7 +46,7 @@ BEGIN {
                 splice @PATH, $idx + 1, 0, @paths;
             }
             if ($ENV{PORTABLE_BINPATHS_VERBOSE}) {
-                say "Portable::BinPaths: portable perl detected, its bin dirs have been added to $ENV{PATH}";
+                say "Portable::BinPaths: portable perl detected, its bin dirs have been added to \$ENV{PATH}:\n$ENV{PATH}";
                 # say join "\n", @PATH;
             }
         }
